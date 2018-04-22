@@ -6,7 +6,7 @@
 
 ## Installation
 
-To install this plugin, just grab the latest JAR file from the [releases page](https://github.com/Rayzr522/PrisonPicks/releases).
+To install this plugin, just grab the latest JAR file from the [releases page](https://github.com/RayzrDev/PrisonPicks/releases).
 
 ## Commands
 
