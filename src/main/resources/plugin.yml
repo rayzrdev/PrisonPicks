@@ -1,0 +1,10 @@
+main: me.rayzr522.prisonpicks.PrisonPicks
+name: PrisonPicks
+version: 1.0.0
+description: A plugin for Prison servers that adds 3 special pickaxes!
+author: Rayzr
+#commands:
+#  prisonpicks:
+#    description: The main command for PrisonPicks
+#    aliases: [alias1,alias2]
+#    usage: "\u00A7cRayzr fracked something up."
