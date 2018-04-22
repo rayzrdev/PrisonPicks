@@ -1,20 +1,24 @@
 package me.rayzr522.prisonpicks;
 
-import me.rayzr522.prisonpicks.utils.MessageHandler;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import me.rayzr522.prisonpicks.api.PickaxeRegistry;
+import me.rayzr522.prisonpicks.pickaxes.BountifulPickaxe;
+import me.rayzr522.prisonpicks.pickaxes.ExplosivePickaxe;
+import me.rayzr522.prisonpicks.pickaxes.SmeltersPickaxe;
+import me.rayzr522.prisonpicks.util.Language;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
 
 /**
  * @author Rayzr
  */
 public class PrisonPicks extends JavaPlugin {
     private static PrisonPicks instance;
-    private MessageHandler messages = new MessageHandler();
+    private Language language = new Language();
+    private PickaxeRegistry pickaxeRegistry;
+    private WorldGuardPlugin worldGuard;
 
     public static PrisonPicks getInstance() {
         return instance;
@@ -24,7 +28,34 @@ public class PrisonPicks extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        if (!loadWorldGuard()) {
+            getLogger().severe("Failed to load WorldGuard! This plugin will now be disabled.");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
         reload();
+
+        pickaxeRegistry = new PickaxeRegistry(this);
+
+        registerDefaultPickaxes();
+        getCommand("prisonpicks").setExecutor(new CommandHandler(this));
+    }
+
+    private boolean loadWorldGuard() {
+        Plugin plugin = Bukkit.getPluginManager().getPlugin("WorldGuard");
+        if (!(plugin instanceof WorldGuardPlugin)) {
+            return false;
+        }
+
+        worldGuard = (WorldGuardPlugin) plugin;
+        return true;
+    }
+
+    private void registerDefaultPickaxes() {
+        pickaxeRegistry.registerPickaxe(new SmeltersPickaxe(pickaxeRegistry));
+        pickaxeRegistry.registerPickaxe(new ExplosivePickaxe(pickaxeRegistry));
+        pickaxeRegistry.registerPickaxe(new BountifulPickaxe(pickaxeRegistry));
     }
 
     @Override
@@ -39,42 +70,7 @@ public class PrisonPicks extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        messages.load(getConfig("messages.yml"));
-    }
-
-    /**
-     * If the file is not found and there is a default file in the JAR, it saves the default file to the plugin data folder first
-     *
-     * @param path The path to the config file (relative to the plugin data folder)
-     * @return The {@link YamlConfiguration}
-     */
-    public YamlConfiguration getConfig(String path) {
-        if (!getFile(path).exists() && getResource(path) != null) {
-            saveResource(path, true);
-        }
-        return YamlConfiguration.loadConfiguration(getFile(path));
-    }
-
-    /**
-     * Attempts to save a {@link YamlConfiguration} to the disk, and any {@link IOException}s are printed to the console
-     *
-     * @param config The config to save
-     * @param path   The path to save the config file to (relative to the plugin data folder)
-     */
-    public void saveConfig(YamlConfiguration config, String path) {
-        try {
-            config.save(getFile(path));
-        } catch (IOException e) {
-            getLogger().log(Level.SEVERE, "Failed to save config", e);
-        }
-    }
-
-    /**
-     * @param path The path of the file (relative to the plugin data folder)
-     * @return The {@link File}
-     */
-    public File getFile(String path) {
-        return new File(getDataFolder(), path.replace('/', File.separatorChar));
+        language.load(getConfig().getConfigurationSection("messages"));
     }
 
     /**
@@ -85,7 +81,7 @@ public class PrisonPicks extends JavaPlugin {
      * @return The formatted message
      */
     public String tr(String key, Object... objects) {
-        return messages.tr(key, objects);
+        return language.tr(key, objects);
     }
 
     /**
@@ -96,12 +92,12 @@ public class PrisonPicks extends JavaPlugin {
      * @return The formatted message
      */
     public String trRaw(String key, Object... objects) {
-        return messages.trRaw(key, objects);
+        return language.trRaw(key, objects);
     }
 
     /**
      * Checks a target {@link CommandSender} for a given permission (excluding the permission base). Example:
-     * <p>
+     *
      * <pre>
      *     checkPermission(sender, "command.use", true);
      * </pre>
@@ -128,10 +124,13 @@ public class PrisonPicks extends JavaPlugin {
     }
 
     /**
-     * @return The {@link MessageHandler} instance for this plugin
+     * @return The {@link Language} instance for this plugin
      */
-    public MessageHandler getMessages() {
-        return messages;
+    public Language getLang() {
+        return language;
     }
 
+    public WorldGuardPlugin getWorldGuard() {
+        return worldGuard;
+    }
 }

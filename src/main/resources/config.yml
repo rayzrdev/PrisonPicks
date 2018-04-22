@@ -1,0 +1,43 @@
+pickaxes:
+  smelters:
+    name: "&6Smelter's &cPickaxe"
+    lore: "&7&oA trusty pick that smelts what you mine!"
+    smeltable-blocks:
+    - IRON_ORE
+    - GOLD_ORE
+    - COBBLESTONE
+    - STONE
+    - NETHERRACK
+  explosive:
+    name: "&eExplosive Pickaxe"
+    lore: "&7&oBlast your way to the top!"
+  bountiful:
+    name: "&aBountiful &bPickaxe"
+    lore: "&7&oDrops the ores from others nearby!"
+    # This list defines the order of worth for ores
+    ore-worth:
+    - COAL_ORE
+    - IRON_ORE
+    - LAPIS_ORE
+    - REDSTONE_ORE
+    - GLOWING_REDSTONE_ORE
+    - QUARTZ_ORE
+    - GOLD_ORE
+    - DIAMOND_ORE
+    - EMERALD_ORE
+
+messages:
+  prefix: "&8\u00bb&6 "
+  no-permission: "&cYou need the permission '%s' to do that!"
+
+  command:
+    fail:
+      prefix-addon: "&c"
+      no-player: "&cThe player '%s' does not exist!"
+    pickaxe:
+      usage: "&cUsage: &7/%s &e[player]"
+      given: "Gave &e%s&6 a &c%s"
+    prisonpicks:
+      usage: "&cUsage: &7/prisonpicks &ereload|version"
+      version: "You are running &cPrison Picks&6 v&c%s&6 by &eRayzr522"
+      reloaded: "Config reloaded!"

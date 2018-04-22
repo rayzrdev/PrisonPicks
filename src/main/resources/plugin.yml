@@ -1,10 +1,19 @@
 main: me.rayzr522.prisonpicks.PrisonPicks
-name: PrisonPicks
-version: 1.0.0
-description: A plugin for Prison servers that adds 3 special pickaxes!
-author: Rayzr
-#commands:
-#  prisonpicks:
-#    description: The main command for PrisonPicks
-#    aliases: [alias1,alias2]
-#    usage: "\u00A7cRayzr fracked something up."
+name: ${project.name}
+version: ${project.version}
+description: ${project.description}
+author: Rayzr522
+commands:
+  prisonpicks:
+    description: "The main command for PrisonPicks"
+    usage: "\u00A7cRayzr screwed something up."
+  smelterspickaxe:
+    description: "Gives you or someone else a Smelter's pickaxe"
+  explosivepickaxe:
+    description: "Gives you or someone else an Explosive pickaxe"
+  bountifulpickaxe:
+    description: "Gives you or someone else a Bountiful pickaxe"
+permissions:
+  PrisonPicks.admin:
+    description: "Allows the use of admin commands"
+    default: op
