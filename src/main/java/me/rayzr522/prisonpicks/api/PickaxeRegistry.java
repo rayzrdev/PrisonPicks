@@ -45,6 +45,16 @@ public class PickaxeRegistry implements Listener {
         registry.put(pickaxe.getID(), pickaxe);
     }
 
+    public boolean isCustomPickaxe(ItemStack item) {
+        if (item == null || item.getType() == Material.AIR || !item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
+            return false;
+        }
+
+        return registry.values().stream()
+                .map(CustomPickaxe::getDisplayName)
+                .anyMatch(item.getItemMeta().getDisplayName()::equals);
+    }
+
     public PrisonPicks getPlugin() {
         return plugin;
     }

@@ -2,6 +2,7 @@ package me.rayzr522.prisonpicks;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.rayzr522.prisonpicks.api.PickaxeRegistry;
+import me.rayzr522.prisonpicks.events.AnvilListener;
 import me.rayzr522.prisonpicks.pickaxes.BountifulPickaxe;
 import me.rayzr522.prisonpicks.pickaxes.ExplosivePickaxe;
 import me.rayzr522.prisonpicks.pickaxes.SmeltersPickaxe;
@@ -37,9 +38,10 @@ public class PrisonPicks extends JavaPlugin {
         reload();
 
         pickaxeRegistry = new PickaxeRegistry(this);
-
         registerDefaultPickaxes();
+
         getCommand("prisonpicks").setExecutor(new CommandHandler(this));
+        getServer().getPluginManager().registerEvents(new AnvilListener(this), this);
     }
 
     private boolean loadWorldGuard() {
@@ -97,7 +99,7 @@ public class PrisonPicks extends JavaPlugin {
 
     /**
      * Checks a target {@link CommandSender} for a given permission (excluding the permission base). Example:
-     *
+     * <p>
      * <pre>
      *     checkPermission(sender, "command.use", true);
      * </pre>
@@ -132,5 +134,9 @@ public class PrisonPicks extends JavaPlugin {
 
     public WorldGuardPlugin getWorldGuard() {
         return worldGuard;
+    }
+
+    public PickaxeRegistry getPickaxeRegistry() {
+        return pickaxeRegistry;
     }
 }
