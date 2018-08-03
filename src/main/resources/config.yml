@@ -14,6 +14,8 @@ pickaxes:
   explosive:
     name: "&eExplosive Pickaxe"
     lore: "&7&oBlast your way to the top!"
+    block-blacklist:
+    - BEDROCK
   bountiful:
     name: "&aBountiful &bPickaxe"
     lore: "&7&oDrops the ores from others nearby!"

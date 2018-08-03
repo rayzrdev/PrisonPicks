@@ -4,6 +4,7 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.rayzr522.prisonpicks.api.AbstractCustomPickaxe;
 import me.rayzr522.prisonpicks.api.PickaxeRegistry;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -12,6 +13,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class ExplosivePickaxe extends AbstractCustomPickaxe {
     public ExplosivePickaxe(PickaxeRegistry registry) {
         super(registry, "explosive");
+    }
+
+    private boolean isBlacklisted(Material type) {
+        return getConfig().getStringList("block-blacklist").contains(type.name());
     }
 
     @Override
@@ -26,6 +31,10 @@ public class ExplosivePickaxe extends AbstractCustomPickaxe {
                     }
 
                     Block relative = e.getBlock().getRelative(x, y, z);
+                    if (isBlacklisted(relative.getType())) {
+                        continue;
+                    }
+
                     if (!worldGuard.canBuild(e.getPlayer(), relative)) {
                         continue;
                     }
