@@ -23,9 +23,11 @@ public class ExplosivePickaxe extends AbstractCustomPickaxe {
     public void onBreak(BlockBreakEvent e) {
         WorldGuardPlugin worldGuard = getPickaxeRegistry().getPlugin().getWorldGuard();
 
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                for (int z = -1; z <= 1; z++) {
+        int radius = getConfig().getInt("radius");
+
+        for (int x = -radius; x <= radius; x++) {
+            for (int y = -radius; y <= radius; y++) {
+                for (int z = -radius; z <= radius; z++) {
                     if (x == 0 && y == 0 && z == 0) {
                         continue;
                     }
