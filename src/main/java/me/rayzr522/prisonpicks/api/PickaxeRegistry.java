@@ -34,6 +34,10 @@ public class PickaxeRegistry implements Listener {
             return;
         }
 
+        if (plugin.getSettings().getBlacklistedWorlds().contains(e.getBlock().getWorld().getName())) {
+            return;
+        }
+
         String name = item.getItemMeta().getDisplayName();
         registry.values().stream()
                 .filter(pickaxe -> pickaxe.getDisplayName().equals(name))

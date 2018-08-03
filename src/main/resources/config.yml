@@ -1,3 +1,6 @@
+settings:
+  blacklisted-worlds: []
+
 pickaxes:
   smelters:
     name: "&6Smelter's &cPickaxe"

@@ -2,6 +2,7 @@ package me.rayzr522.prisonpicks;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.rayzr522.prisonpicks.api.PickaxeRegistry;
+import me.rayzr522.prisonpicks.config.Settings;
 import me.rayzr522.prisonpicks.events.AnvilListener;
 import me.rayzr522.prisonpicks.pickaxes.BountifulPickaxe;
 import me.rayzr522.prisonpicks.pickaxes.ExplosivePickaxe;
@@ -18,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PrisonPicks extends JavaPlugin {
     private static PrisonPicks instance;
     private Language language = new Language();
+    private Settings settings = new Settings();
     private PickaxeRegistry pickaxeRegistry;
     private WorldGuardPlugin worldGuard;
 
@@ -73,6 +75,7 @@ public class PrisonPicks extends JavaPlugin {
         reloadConfig();
 
         language.load(getConfig().getConfigurationSection("messages"));
+        settings.load(getConfig().getConfigurationSection("settings"));
     }
 
     /**
@@ -130,6 +133,10 @@ public class PrisonPicks extends JavaPlugin {
      */
     public Language getLang() {
         return language;
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 
     public WorldGuardPlugin getWorldGuard() {
