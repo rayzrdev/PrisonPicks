@@ -1,5 +1,6 @@
 package me.rayzr522.prisonpicks.pickaxes;
 
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.rayzr522.prisonpicks.api.AbstractCustomPickaxe;
 import me.rayzr522.prisonpicks.api.PickaxeRegistry;
 import org.bukkit.Location;
@@ -31,12 +32,18 @@ public class BountifulPickaxe extends AbstractCustomPickaxe {
     public void onBreak(BlockBreakEvent e) {
         int highestWorth = -1;
         Block mostValuableBlock = null;
+        WorldGuardPlugin worldGuard = getPickaxeRegistry().getPlugin().getWorldGuard();
 
         for (int x = -3; x <= 3; x++) {
             for (int y = -3; y <= 3; y++) {
                 for (int z = -3; z <= 3; z++) {
                     Block relative = e.getBlock().getRelative(x, y, z);
                     if (relative == null) {
+                        continue;
+                    }
+
+                    if (!worldGuard.canBuild(e.getPlayer(), relative)) {
+                        // Ignore blocks outside our access.
                         continue;
                     }
 
