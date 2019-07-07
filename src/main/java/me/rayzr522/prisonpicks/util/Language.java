@@ -17,10 +17,12 @@ public class Language {
     }
 
     private String computePrefixFor(String key) {
-        String base = messages.getOrDefault(key + ".prefix", messages.getOrDefault("prefix", ""));
-        String addon = messages.getOrDefault(key + ".prefix-addon", "");
+        String base = key.lastIndexOf('.') > -1 ? key.substring(0, key.lastIndexOf('.')) : "";
 
-        return base + addon;
+        String prefix = messages.getOrDefault(base + ".prefix", messages.getOrDefault("prefix", ""));
+        String addon = messages.getOrDefault(base + ".prefix-addon", "");
+
+        return prefix + addon;
     }
 
     public String trRaw(String key, Object... formatterArgs) {

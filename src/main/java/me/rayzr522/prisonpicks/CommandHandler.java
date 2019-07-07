@@ -17,8 +17,8 @@ public class CommandHandler implements CommandExecutor {
             return true;
         }
 
-
         String sub = args.length < 1 ? "" : args[0].toLowerCase();
+        
         if (sub.equals("reload")) {
             plugin.reload();
             sender.sendMessage(plugin.tr("command.prisonpicks.reloaded"));
