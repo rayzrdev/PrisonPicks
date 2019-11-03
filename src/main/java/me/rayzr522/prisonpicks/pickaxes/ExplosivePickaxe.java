@@ -37,7 +37,7 @@ public class ExplosivePickaxe extends AbstractCustomPickaxe {
                         continue;
                     }
 
-                    if (!worldGuard.canBuild(e.getPlayer(), relative)) {
+                    if (!worldGuard.createProtectionQuery().testBlockBreak(worldGuard.wrapPlayer(e.getPlayer()), relative)) {
                         continue;
                     }
 

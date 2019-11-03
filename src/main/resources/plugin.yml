@@ -2,23 +2,24 @@ main: me.rayzr522.prisonpicks.PrisonPicks
 name: ${project.name}
 version: ${project.version}
 description: ${project.description}
+api-version: 1.14
 authors: [Rayzr522]
 
 commands:
-  prisonpicks:
-    description: "The main command for PrisonPicks"
-    usage: "\u00A7cRayzr screwed something up."
-  smelterspickaxe:
-    description: "Gives you or someone else a Smelter's pickaxe"
-    usage: "\u00A7cRayzr screwed something up."
-  explosivepickaxe:
-    description: "Gives you or someone else an Explosive pickaxe"
-    usage: "\u00A7cRayzr screwed something up."
-  bountifulpickaxe:
-    description: "Gives you or someone else a Bountiful pickaxe"
-    usage: "\u00A7cRayzr screwed something up."
+    prisonpicks:
+        description: "The main command for PrisonPicks"
+        usage: "\u00A7cRayzr screwed something up."
+    smelterspickaxe:
+        description: "Gives you or someone else a Smelter's pickaxe"
+        usage: "\u00A7cRayzr screwed something up."
+    explosivepickaxe:
+        description: "Gives you or someone else an Explosive pickaxe"
+        usage: "\u00A7cRayzr screwed something up."
+    bountifulpickaxe:
+        description: "Gives you or someone else a Bountiful pickaxe"
+        usage: "\u00A7cRayzr screwed something up."
 
 permissions:
-  PrisonPicks.admin:
-    description: "Allows the use of admin commands"
-    default: op
+    PrisonPicks.admin:
+        description: "Allows the use of admin commands"
+        default: op

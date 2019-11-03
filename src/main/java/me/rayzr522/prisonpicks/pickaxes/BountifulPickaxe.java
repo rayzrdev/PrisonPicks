@@ -42,7 +42,7 @@ public class BountifulPickaxe extends AbstractCustomPickaxe {
                         continue;
                     }
 
-                    if (!worldGuard.canBuild(e.getPlayer(), relative)) {
+                    if (!worldGuard.createProtectionQuery().testBlockBreak(worldGuard.wrapPlayer(e.getPlayer()), relative)) {
                         // Ignore blocks outside our access.
                         continue;
                     }
